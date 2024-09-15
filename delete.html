@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete User</title>
+    <script>
+        async function deleteUser(userId) {
+            try {
+                const response = await fetch(`/delete/${userId}`, {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    alert('User deleted successfully');
+                    // Optionally, redirect to another page or update the UI
+                    window.location.href = '/users'; // Redirect to the users list
+                } else {
+                    alert('Failed to delete user');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const userId = new URLSearchParams(window.location.search).get('id');
+            if (userId) {
+                deleteUser(userId);
+            } else {
+                alert('No user ID provided');
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Deleting User...</h1>
+</body>
+</html>
